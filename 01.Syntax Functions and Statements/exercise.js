@@ -210,38 +210,84 @@ function cookingNumbers(int, ...params) {
 
       for (let i = 0; i < params.length; i++) {
             switch (params[i]) {
-                  case 'chop' : number = chop(number);
-                  console.log(number);
-                  break;
+                  case 'chop': number = chop(number);
+                        console.log(number);
+                        break;
 
-                  case 'dice' : number = dice(number);
-                  console.log(number);
-                  break;
+                  case 'dice': number = dice(number);
+                        console.log(number);
+                        break;
 
-                  case 'spice' : number = spice(number);
-                  console.log(number);
-                  break;
+                  case 'spice': number = spice(number);
+                        console.log(number);
+                        break;
 
-                  case 'bake' : number = bake(number);
-                  console.log(number);
-                  break;
+                  case 'bake': number = bake(number);
+                        console.log(number);
+                        break;
 
-                  case 'fillet' : number = fillet(number);
-                  console.log(number.toFixed(1));
-                  break;
+                  case 'fillet': number = fillet(number);
+                        console.log(number.toFixed(1));
+                        break;
             }
-            
+
       }
 }
 
-cookingNumbers('32', 'chop', 'chop', 'chop', 'chop', 'chop');
-cookingNumbers('9', 'dice', 'spice', 'chop', 'bake','fillet');
+// cookingNumbers('32', 'chop', 'chop', 'chop', 'chop', 'chop');
+// cookingNumbers('9', 'dice', 'spice', 'chop', 'bake','fillet');
 
 //8. Validity Check
 
-function validityCheck (x1, y1, x2, y2) {
+function validityCheck([x1, y1, x2, y2]) {
 
-      let test;
+      // let x1 = Number(input[0]);
+
+      // let y1 = Number(input[1]);
+
+      // let x2 = Number(input[2]);
+
+      // let y2 = Number(input[3]);
+
+      result(x1, y1, 0, 0);
+
+      result(x2, y2, 0, 0);
+
+      result(x1, y1, x2, y2);
+
+      // console.log(Number.isInteger(result(x1, y1))
+
+      // ? `{${x1}, ${y1}} to {0, 0} is valid`
+
+      // : `{${x1}, ${y1}} to {0, 0} is invalid`);
+
+      // console.log(Number.isInteger(result(x2, y2))
+
+      // ? `{${x2}, ${y2}} to {0, 0} is valid`
+
+      // : `{${x2}, ${y2}} to {0, 0} is invalid`);
+
+      // console.log(Number.isInteger((x1 - x2), (y1 - y2))
+
+      // ? `{${x1}, ${y1}} to {${x2}, ${y2}} is valid`
+
+      // : `{${x1}, ${y1}} to {${x2}, ${y2}} is invalid`);
+
+
+      function result(x1, y1, x2, y2) {
+
+            const distance = Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+
+            const validString = Number.isInteger(distance) ? 'valid' : 'invalid';
+
+            console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is ${validString}`);
+
+
+
+            // return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+
+      }
+
 }
 
 // validityCheck(3, 0, 0, 4);
@@ -249,13 +295,43 @@ function validityCheck (x1, y1, x2, y2) {
 
 //9. Words Uppercase
 
-function wordsUpperCase (input) {
+function wordsUpperCase(input) {
 
-let sentence = new Array(params.split(", "));
+      let sentence = new Array(input.toUpperCase().
+            split(/[\W]+/).
+            filter(w => w.length > 0).join(", "));
 
-      for (let i = 0; i < params.length; i++) {
+      sentence.forEach(element => {
+            console.log(element);
+      });
 
-      }
 }
 
-wordsUpperCase('Hi, how are you?');
+// wordsUpperCase('Hi, how are you?');
+// wordsUpperCase('hello');
+
+function solve(text) {
+
+      let result = text.toUpperCase()
+            .split(/[\W]+/)
+            .filter(w => w.length > 0)
+            .join(", ");
+
+      console.log(result);
+}
+
+// solve('Hi, how are you?');
+
+function test(input) {
+
+      let words = new Array(input.split(/[\s+]/));
+
+      for (let i = 0; i < words.length; i++) {
+            const element = words[i];
+            console.log(element.toString());
+      }
+
+      
+}
+
+test('Hi, how are you?');
