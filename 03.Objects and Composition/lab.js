@@ -101,7 +101,7 @@ function factory(lib, list) {
 
         for (let part of parts) {
             object[part] = lib[part];
-        
+
         }
 
         result.push(object);
@@ -149,14 +149,145 @@ const orders = [
 
 ];
 
-const products = factory(library, orders);
-
-for (const element of products) {
-    console.log(element);   
-}
+// const products = factory(library, orders);
+// console.log(products);
 
 
 //6. Assembly Line
+
+function createAssemblyLine() {
+    return {
+        hasClima(car) {
+            car.temp = 21;
+            car.tempSettings = 21;
+            car.adjustTemp = () => {
+                if (car.temp < car.tempSettings) {
+                    car.temp++;
+                } else if (car.temp > car.tempSettings) {
+                    car.temp--;
+                }
+            }
+        },
+
+        hasAudio(car) {
+            car.currentTrack = {
+                name: '',
+                artist: ''
+            }
+            car.nowPlaying = () => {
+                console.log(`Now playing '${car.currentTrack.name}' by ${car.currentTrack.artist}`);
+            }
+        },
+
+        hasParktronic(car) {
+            car.checkDistance = (distance) => {
+                if (distance < 0.1) {
+                    console.log("Beep! Beep! Beep!");
+                } else if (0.1 <= distance && distance < 0.25) {
+                    console.log("Beep! Beep!");
+                } else if (0.25 <= distance && distance < 0.5) {
+                    console.log("Beep!");
+                } else {
+                    console.log("");
+                }
+            }
+        }
+    };
+}
+
+const assemblyLine = createAssemblyLine();
+
+const myCar = {
+    make: 'Volkswagen',
+    model: 'Passat B8'
+};
+
+// assemblyLine.hasClima(myCar);
+// console.log(myCar.temp);
+// myCar.tempSettings = 18;
+// myCar.adjustTemp();
+// console.log(myCar.temp);
+
+// assemblyLine.hasAudio(myCar);
+// myCar.currentTrack = {
+//     name: 'Never Gonna Give You Up',
+//     artist: 'Rick Astley'
+// };
+// myCar.nowPlaying();
+
+// assemblyLine.hasParktronic(myCar);
+// myCar.checkDistance(0.4);
+// myCar.checkDistance(0.2);
+
+// console.log(myCar);
+
+
+//6.From JSON to HTML Table 
+
+function fromJSONToHTMLTable(input) {
+    let students = JSON.parse(input);
+    let htmlText = ['<table>'];
+    let objNames = students[0];
+
+    htmlText.push(makeKeyRow(objNames));
+    students.forEach(obj => htmlText.push(makeValueRow(obj)));
+    htmlText.push('</table>');
+
+    function makeKeyRow(arr) {
+        let keys = [];
+        Object.keys(arr).forEach(key => {
+            keys.push(`<th>${escapeHTML(key)}</th>`);
+        });
+        return ("<tr>" + keys.join('') + "</tr>");
+    }
+
+    function makeValueRow(obj) {
+        let rows = [];
+        Object.values(obj).forEach(value => {
+            rows.push(`<td>${escapeHTML(value)}</td>`);
+        });
+        return ("<tr>" + rows.join('') + "</tr>");
+    }
+
+    function escapeHTML(value) {
+        return value
+            .toString()
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    return htmlText.join('\r\n');
+}
+
+// fromJSONToHTMLTable(`[
+//     {   "Name": "Stamat",
+//         "Score": 5.5},
+//     {   "Name": "Rumen",
+//         "Score": 6}]`
+// )
+
+// fromJSONToHTMLTable(`[{"Name":"Pesho",
+// "Score":4,
+// " Grade":8},
+// {"Name":"Gosho",
+// "Score":5,
+// " Grade":8},
+// {"Name":"Angel",
+// "Score":5.50,
+// " Grade":10}]`
+)
+
+
+
+
+
+
+
+
+
 
 
 

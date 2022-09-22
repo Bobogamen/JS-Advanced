@@ -182,31 +182,24 @@ function magicMatrices(matrix) {
 function ticTacToe(moves) {
       let table = [[false, false, false],
                    [false, false, false],
-      [            false, false, false]];
+                   [false, false, false]];
 
-      let noMovesLeft = false;
+      let swap = false;
 
       for (let i = 0; i < moves.length; i++) {
-
             if (i > 4) {
-
-                  switch (winnerChecker(table, noMovesLeft)) {
-                        case 0: console.log('Player X wins!');
-                              printTable(table, noMovesLeft);
+                  switch (winnerChecker(table)) {
+                        case 0: console.log("Player X wins!");
+                              printTable(table);
                               return;
-                        case 1: console.log('Player O wins!');
-                              printTable(table, noMovesLeft);
-                              return;
-                        case false: console.log('The game ended! Nobody wins :(');
-                              printTable(table, noMovesLeft);
+                        case 1: console.log("Player O wins!");
+                              printTable(table);
                               return;
                   }
             }
 
             let row = Number(moves[i].split(' ')[0]);
             let col = Number(moves[i].split(' ')[1]);
-
-            let swap = false;
 
             if (swap) {
                   if (table[row][col] == false && i % 2 != 0) {
@@ -227,74 +220,74 @@ function ticTacToe(moves) {
                         swap = true;
                   }
             }
+
+            if (table.every(x => x.every(y => y != false))) {
+                  console.log("The game ended! Nobody wins :(");
+                        printTable(table);
+                        return;
+            }
       }
 
-      noMovesLeft = true;
-}
+      function winnerChecker(table) {
 
-function winnerChecker(table, noMovesLeft) {
-
-      let firstWin = 'XXX';
-      let secondWin = 'OOO';
-
-      let row1 = table[0].join('');
-      let row2 = table[1].join('');
-      let row3 = table[2].join('');
-      let col1 = table[0][0] + table[1][0] + table[2][0];
-      let col2 = table[0][1] + table[1][1] + table[2][1];
-      let col3 = table[0][2] + table[1][2] + table[2][2];
-      let diag1 = table[0][0] + table[1][1] + table[2][2];
-      let diag2 = table[2][0] + table[1][1] + table[0][2];
-
-      if (row1 == firstWin) {
-            return 0;
-      } else if (row1 == secondWin) {
-            return 1;
-      } else if (row2 == firstWin) {
-            return 0;
-      } else if (row2 == secondWin) {
-            return 1;
-      } else if (row3 == firstWin) {
-            return 0;
-      } else if (row3 == secondWin) {
-            return 1;
-      } else if (col1 == firstWin) {
-            return 0;
-      } else if (col1 == secondWin) {
-            return 1;
-      } else if (col2 == firstWin) {
-            return 0;
-      } else if (col2 == secondWin) {
-            return 1;
-      } else if (col3 == firstWin) {
-            return 0;
-      } else if (col3 == secondWin) {
-            return 1;
-      } else if (diag1 == firstWin) {
-            return 0;
-      } else if (diag1 == secondWin) {
-            return 1;
-      } else if (diag2 == firstWin) {
-            return 0;
-      } else if (diag2 == secondWin) {
-            return 1;
-      }
-
-      if (noMovesLeft == true) {
+            let firstWin = 'XXX';
+            let secondWin = 'OOO';
+      
+            let row1 = table[0].join('');
+            let row2 = table[1].join('');
+            let row3 = table[2].join('');
+            let col1 = table[0][0] + table[1][0] + table[2][0];
+            let col2 = table[0][1] + table[1][1] + table[2][1];
+            let col3 = table[0][2] + table[1][2] + table[2][2];
+            let diag1 = table[0][0] + table[1][1] + table[2][2];
+            let diag2 = table[2][0] + table[1][1] + table[0][2];
+      
+            if (row1 == firstWin) {
+                  return 0;
+            } else if (row1 == secondWin) {
+                  return 1;
+            } else if (row2 == firstWin) {
+                  return 0;
+            } else if (row2 == secondWin) {
+                  return 1;
+            } else if (row3 == firstWin) {
+                  return 0;
+            } else if (row3 == secondWin) {
+                  return 1;
+            } else if (col1 == firstWin) {
+                  return 0;
+            } else if (col1 == secondWin) {
+                  return 1;
+            } else if (col2 == firstWin) {
+                  return 0;
+            } else if (col2 == secondWin) {
+                  return 1;
+            } else if (col3 == firstWin) {
+                  return 0;
+            } else if (col3 == secondWin) {
+                  return 1;
+            } else if (diag1 == firstWin) {
+                  return 0;
+            } else if (diag1 == secondWin) {
+                  return 1;
+            } else if (diag2 == firstWin) {
+                  return 0;
+            } else if (diag2 == secondWin) {
+                  return 1;
+            }
             return true;
       }
 
-      return true;
-}
-
-function printTable(table) {
-      for (const row of table) {
-            console.log(row.join('\t'));
+      function printTable(table) {
+            for (const row of table) {
+                  console.log(row.join('\t'));
+            }
       }
 }
 
 // ticTacToe(["0 1", "0 0", "0 2", "2 0", "1 0", "1 1", "1 2", "2 2", "2 1", "0 0"]);
 // ticTacToe(["0 0", "0 0", "1 1", "0 1", "1 2", "0 2", "2 2", "1 2", "2 2", "2 1"]);
-ticTacToe(["0 1","0 0","0 2","2 0","1 0","1 2","1 1","2 1","2 2","0 0"]);
+// ticTacToe(["0 1", "0 0", "0 2", "2 0", "1 0", "1 2", "1 1", "2 1", "2 2", "0 0"]);
+ticTacToe(["0 1", "0 0", "0 1", "0 0", "0 2", "2 0", "1 0", "1 2", "1 1", "2 1", "2 2", "0 0"]);
 
 
