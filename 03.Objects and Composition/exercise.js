@@ -325,10 +325,6 @@ function solve() {
       return {mage: mage, fighter: fighter}
 };
 
-
-
-
-
 let create = solve();
 const scorcher = create.mage("Scorcher");
 scorcher.cast("fireball")
