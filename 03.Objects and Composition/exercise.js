@@ -13,7 +13,6 @@ function calorieObject(input) {
 
 // calorieObject(['Yoghurt', '48', 'Rise', '138', 'Apple', '52']);
 
-
 //2. Construction Crew
 
 function constructionCrew(worker) {
@@ -189,42 +188,38 @@ function storeCatalogue(input) {
       let result = {};
 
       for (const element of input) {
-            let [name, price] = element.split(' : ');
+            let [product, price] = element.split(' : ');
             price = Number(price);
 
-            let letter = name.charAt();
+            let letter = product[0];
 
             if (!result.hasOwnProperty(letter)) {
                   result[letter] = {};
-                  result[letter][name] = price;
-            } else {
-                  result[letter][name] = price;
+            }
+            
+            result[letter][product] = price;
+      }
+
+      let sortedLetters = Object.keys(result).sort((a, b) => a.localeCompare(b));
+
+      for (const letter of sortedLetters) {
+            console.log(letter);
+            let sortedProducts = Object.keys(result[letter]).sort((a,b) => a.localeCompare(b));
+            
+            for (const product of sortedProducts) {
+                  console.log(`  ${product}: ${result[letter][product]}`);
             }
       }
-
-      Object.values(result).forEach(element => {
-            console.log(element);
-      });
-
-
-
-      for (const element in result) {
-            console.log(element);
-            console.log(`  ${Object.entries(result[element])}`);
-      }
-
-
-
 }
 
-storeCatalogue(['Appricot : 20.4',
-      'Fridge : 1500',
-      'TV : 1499',
-      'Deodorant : 10',
-      'Boiler : 300',
-      'Apple : 1.25',
-      'Anti-Bug Spray : 15',
-      'T-Shirt : 10']);
+// storeCatalogue(['Appricot : 20.4',
+//       'Fridge : 1500',
+//       'TV : 1499',
+//       'Deodorant : 10',
+//       'Boiler : 300',
+//       'Apple : 1.25',
+//       'Anti-Bug Spray : 15',
+//       'T-Shirt : 10']);
 
 // storeCatalogue(['Banana : 2',
 // 'Rubic \'s Cube : 5',
@@ -234,3 +229,115 @@ storeCatalogue(['Appricot : 20.4',
 // 'Rali Car : 2000000',
 // 'Pesho : 0.000001',
 // 'Barrel : 10']);
+
+
+//7. Towns ot JSON
+
+function townsToJSON(input) {
+
+      let result = [];
+
+      for (let i = 1; i < input.length; i++) {
+            let towns = {};
+            let [town, latitude, longitude] = input[i].split('|').map(e => e.trim()).filter(e => e.length > 0);
+
+            latitude = Number(Number(latitude).toFixed(2));
+            longitude = Number(Number(longitude).toFixed(2));
+
+            towns['Town'] = town;
+            towns['Latitude'] = latitude;
+            towns['Longitude'] = longitude;
+
+            result.push(towns);
+            
+      }
+      console.log(JSON.stringify(result));
+};
+
+// townsToJSON(['| Town | Latitude | Longitude |',
+// '| Sofia | 42.696552 | 23.32601 |',
+// '| Beijing | 39.913818 | 116.363625 |']
+// );
+
+// townsToJSON(['| Town | Latitude | Longitude |',
+// '| Veliko Turnovo | 43.0757 | 25.6172 |',
+// '| Monatevideo | 34.50 | 56.11 |']
+// );
+
+
+//7. Rectangle
+
+function rectangle(width, height, color) {
+
+      return {
+            width: width,
+            height: height,
+            color: color.charAt(0).toUpperCase() + color.slice(1),
+            calcArea() {return width * height;}
+      }
+};
+
+// let rect = rectangle(4, 5, 'red');
+// console.log(rect.width);
+// console.log(rect.height);
+// console.log(rect.color);
+// console.log(rect.calcArea());
+
+
+//8. Heroes
+
+function solve() {
+
+      const canCast = (state) => ({
+            cast: (spell) => {
+                  console.log(`${state.name} cast ${spell}`);
+                  state.mana--;
+            }
+      });
+
+      const canFight = (state) => ({
+            fight: () => {
+                  console.log(`${state.name} slashes at the foe!`);
+                  state.stamina--;
+            }
+      });
+
+      const fighter = (name) => {
+            let state = {
+                  name,
+                  health: 100,
+                  stamina: 100
+            }
+
+            return Object.assign(state, canFight(state));
+      }
+
+      const mage = (name) => {
+            let state = {
+                  name,
+                  health: 100,
+                  mana: 100
+            }
+
+            return Object.assign(state, canCast(state));
+      }
+
+      return {mage: mage, fighter: fighter}
+};
+
+
+
+
+
+let create = solve();
+const scorcher = create.mage("Scorcher");
+scorcher.cast("fireball")
+scorcher.cast("thunder")
+scorcher.cast("light")
+
+const scorcher2 = create.fighter("Scorcher 2");
+scorcher2.fight();
+
+console.log(scorcher2.stamina);
+console.log(scorcher.mana);
+
