@@ -1,4 +1,4 @@
-function getInfo() {
+async function getInfo() {
       let stopID = document.getElementById('stopId');
       let baseURL = 'http://localhost:3030/jsonstore/bus/businfo'
   
