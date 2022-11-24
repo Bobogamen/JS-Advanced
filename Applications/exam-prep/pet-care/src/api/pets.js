@@ -24,10 +24,10 @@ export async function donatePet(petId) {
       return POST('/data/donation', { petId });
 }
 
-export async function getPetDonation(petId) {
+export async function getPetDonationsCount(petId) {
       return GET(`/data/donation?where=petId%3D%22${petId}%22&distinct=_ownerId&count`)
 }
 
-export async function getPetDonationCount(petId, userId) {
+export async function didUserMakeDonation(petId, userId) {
       return GET(`/data/donation?where=petId%3D%22${petId}%22%20and%20_ownerId%3D%22${userId}%22&count`)
 }
