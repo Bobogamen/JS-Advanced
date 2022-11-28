@@ -54,7 +54,7 @@ export async function detailsView(ctx) {
         didUserDonate = await didUserMakeDonation(petId, userId);
     }
 
-    const isOwner = userData && pet._ownerId == userData.id;
+    const isOwner = userData && offer._ownerId == userData.id;
     const isLoggedIn = userData !== undefined;
 
     totalDonationCount = await getPetDonationsCount(petId);
